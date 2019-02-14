@@ -6,12 +6,12 @@ Here is our code xD </br>
 **dreaptaSpate** - motor roata din dreapta, spate; </br>
 **ridicareBratDreapta** - motor ridicare brat din dreapta; </br>
 **ridicareBratStanga** - motor ridicare brat din stanga; </br>
-**miscareCutie** - motor pentru cutie; </br>
-**actionareAta** - motor actionare ata; </br> </br>
+**miscareCutie** - motor pentru ridicarea si coborarea cutiei; </br>
+**extindereBrat** - motor care actioneaza sistemul cu ata ce extinde bratul; </br> </br>
 
-**servoMarker** - servo pentru marker; </br>
+**servoMarker** - servo pentru depozitarea markerului; </br>
 **servoLock** -servo pentru a tine bratul blocat; </br>
-**servoCarlig** - servo pentru carling de la latching; </br>
-**servoCutie** - servo pentru miscarea cutiei; </br>
-**servoSenzor** - servo pentru bratul pe care se afla senzor; </br>
+**servoCarlig** - servo pentru carligul de la latching; </br>
+**servoCutie** - servo pentru actionarea sistemului cu elastice de pe cutie; </br>
+**servoSenzor** - servo pentru bratul pe care se afla senzorul; </br>
 **servoBob** - servo pentru meme dupa ce ne reuseste latching-ul; </br>
