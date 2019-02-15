@@ -50,9 +50,9 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="TeleOp", group="Linear Opmode")
+@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
 @Disabled
-public class TeleOp extends LinearOpMode {
+public class BasicOpMode_Linear extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -73,6 +73,47 @@ public class TeleOp extends LinearOpMode {
     private Servo servoBob = null;
 
     @Override
+
+    public double cm_converter(double motor_ticks, double gear_ratio_1, double gear_ratio_2, double wheel_diameter, double cm){
+
+      /* This function is designed to calculate necessary number of ticks for moving the robot a certain number of centimeters
+         Parametres meanings:
+         motor_ticks = number of ticks of the motor (not very much to explain here)
+
+         gear_ratio_1 and gear_ratio_2 represents gear ratio between the motor and the wheel took as 2 individual variables
+         For example if the ratio is 2:1, gear_ratio_1 will be equal to 2 and gear_ratio_2 will be equal to 1
+         If the wheel is directly attached to the motor, gear_ratio_1 and gear_ratio_2 will be equal to 1
+
+         wheel_diameter represnts the diameter of the wheel
+
+         cm represents the number of centimeters the number of centimeters we want the robot to move
+
+         This function can be used to return number of ticks necessary for moving the robot a certain number of inches
+         You just need to pass the desired number of inches in the cm  parameter and to encapsulate the last modification of partial_result_3 in comments  */
+
+
+
+
+
+      // calculating the number of ticks necessary for one complete rotation of the wheel with the actual gear configuration
+      double partial_result_1 = (motor_ticks * gear_ratio_1) / gear_ratio_2;
+
+      // calculating the distance traveled by robot afer one complete rotation of the wheel
+      double partial_result_2 = wheel_diameter * Math.PI;
+
+      // calculating the necessary number of ticks to move  the robot 1 inch
+      double partial_result_3 = partial_result_1 / partial_result_2;
+
+      // calculating the necessary number of ticks to move 1 centimeters knowing that 1 inch = 2.54 centimeters
+      // you can encapsulate this part in comments and the function will return the number of inches necessar
+      partial_result_3 = partial_result_3 / 2.54;
+
+      // knowing the necessary number of ticks to move 1 centimeters, finally we can calculate the necessary number of ticks to move the robot cm centimeters
+      int result = partial_result_3 * cm;
+
+      return result;
+    }
+
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
