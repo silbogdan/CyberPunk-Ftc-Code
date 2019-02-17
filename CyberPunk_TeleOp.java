@@ -29,10 +29,15 @@
 
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -56,12 +61,12 @@ public class CyberPunk_TeleOp extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor stangaSpate = null;
     private DcMotor stangaFata = null;
-    private DcMotor dreaptaSpate = null;
+    private DcMotor stangaSpate = null;
     private DcMotor dreaptaFata = null;
-    private DcMotor ridicareBratStanga = null;
-    private DcMotor ridicareBratDreapta = null;
+    private DcMotor dreaptaSpate = null;
+    private DcMotor BratStanga = null;
+    private DcMotor BratDreapta = null;
     private DcMotor extindereBrat = null;
     private DcMotor miscareCutie = null;
 
@@ -73,6 +78,34 @@ public class CyberPunk_TeleOp extends LinearOpMode {
     private Servo servoBob = null;
 
     @Override
+    public static double btd(boolean b) {
+      /* This function it used for converting boolean to double */
+        if (b) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public void strafing(){
+
+      //Setting the power of the motors for strafing left if dpad_left is pushed
+      while(dpad_left){
+        double value=btd(dpad_left);
+        stangaFata.setPower(-value*0,25);
+        stangaSpate.setPower(value*0,25);
+        dreaptaFata.setPower(value*0,25);
+        dreaptaSpate.setPower(-value*0,25);}
+
+    //Setting the power of the motors for strafing right if dpad_right is pushed
+      while (dpad_right){
+        double value=btd(dpad_right);
+        stangaFata.setPower(value*0,25);
+        stangaSpate.setPower(-value*0,25);
+        dreaptaFata.setPower(-value*0,25);
+        dreaptaSpate.setPower(value*0,25);}
+
+    }
+
 
     public double cm_converter(double motor_ticks, double gear_ratio_1, double gear_ratio_2, double wheel_diameter, double cm){
 
@@ -121,12 +154,12 @@ public class CyberPunk_TeleOp extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        stangaSpate = hardwareMap.get(DcMotor.class, "stangaSpate");
         stangaFata = hardwareMap.get(DcMotor.class, "stangaFata");
-        dreaptaSpate = hardwareMap.get(DcMotor.class, "dreaptaSpate");
+        stangaSpate = hardwareMap.get(DcMotor.class, "stangaSpate");
         dreaptaFata = hardwareMap.get(DcMotor.class, "dreaptaFata" );
-        ridicareBratStanga = hardwareMap.get(DcMotor.class, "ridicareBratStanga");
-        ridicareBratDreapta = hardwareMap.get(DcMotor.class, "ridicareBratDreapta");
+        dreaptaSpate = hardwareMap.get(DcMotor.class, "dreaptaSpate");
+        bratStanga = hardwareMap.get(DcMotor.class, "ridicareBratStanga");
+        bratDreapta = hardwareMap.get(DcMotor.class, "ridicareBratDreapta");
         extindereBrat = hardwareMap.get(DcMotor.class, "extindereBrat");
         miscareCutie = hardwareMap.get(DcMotor.class, "miscareCutie");
 
@@ -140,6 +173,16 @@ public class CyberPunk_TeleOp extends LinearOpMode {
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
+        stangaFata = setDirection(DcMotor.Direcion.FORWARD);
+        stangaSpate = setDirection(DcMotor.Direction.FORWARD);
+        dreaptaFata = setDirecion(DcMotor.Direction.FORWARD);
+        dreaptaSpate = setDirection(DcMotor.Direction.FORWARD);
+
+        bratStanga = setDirection(DcMotor.Direction.FORWARD);
+        bratDreapta = setDirection(DcMotor.Direction.FORWARD);
+        extindereBrat = setDirection(DcMotor.Direction.FORWARD);
+        miscareCutie = setDirection(DcMotor.Diretion.FORWARD);
+
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -149,25 +192,23 @@ public class CyberPunk_TeleOp extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            // Setup a variable for each drive wheel to save power level for telemetry
+            //declaring variables
+            double rotire=gamepad1.right_stick_x;
+            double fata_spate = gamepad1.right_stick_y;
 
-
-            // Choose to drive using either Tank Mode, or POV Mode
-            // Comment out the method that's not used.  The default below is POV.
-
-            // POV Mode uses left stick to go forward, and right stick to turn.
-            // - This uses basic math to combine motions and is easier to drive straight.
-
-
-            // Tank Mode uses one stick to control each wheel.
-            // - This requires no math, but it is hard to drive forward slowly and keep straight.
-            // leftPower  = -gamepad1.left_stick_y ;
-            // rightPower = -gamepad1.right_stick_y ;
+            // Calling starfing function if dpad_left or dpad_right are pushed
+            if(gamepad1.dpad_left || gamepad1.dpad_right)strafing();
 
             // Send calculated power to wheels
+            stangaFata = setPower(fata_spate + rotire);
+            stangaSpate = setPower(fata_spate + rotire);
+            dreaptaFata = setPower(fata_spate - rotire);
+            dreaptaSpate = setPower(fata_spate - rotire);
 
 
-            // Show the elapsed game time and wheel power.
+
+
+
 
             telemetry.update();
         }
