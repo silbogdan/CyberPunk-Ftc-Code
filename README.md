@@ -1,11 +1,11 @@
 # CyberPunk-Ftc-Code </br>
-Here is our code xD </br>
-**stangaSpate** - motor roata din stanga, spate; </br>  
+Here is our code xD </br>  
 **stangaFata** - motor roata din stanga, fata; </br>
+**stangaSpate** - motor roata din stanga, spate; </br>
 **dreaptaFata** - motor roata din dreapta, fata; </br>
 **dreaptaSpate** - motor roata din dreapta, spate; </br>
-**bratDreapta** - motor ridicare brat din dreapta; </br>
 **bratStanga** - motor ridicare brat din stanga; </br>
+**bratDreapta** - motor ridicare brat din dreapta; </br>
 **extindereBrat** - motor care actioneaza sistemul cu ata ce extinde bratul; </br>
 **miscareCutie** - motor pentru ridicarea si coborarea cutiei; </br> </br>
 
