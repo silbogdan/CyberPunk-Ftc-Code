@@ -182,8 +182,9 @@ public class CyberPunk_TeleOp extends LinearOpMode {
         bratDreapta = setDirection(DcMotor.Direction.FORWARD);
         extindereBrat = setDirection(DcMotor.Direction.FORWARD);
         miscareCutie = setDirection(DcMotor.Diretion.FORWARD);
-
-
+        
+        bratStanga.setPower(miscare_brat);
+        bratDreapta.setPower(miscare_brat);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -210,7 +211,18 @@ public class CyberPunk_TeleOp extends LinearOpMode {
             dreaptaFata.setPower(0);
             dreaptaSpate.setPower(0);
 
+            bratStanga.setPower(miscare_brat);
+            bratDreapta.setPower(miscare_brat);
 
+
+            while(gamepad2.dpad_up) {
+                 double putere = btd(gamepad2.dpad_up);
+                 extindereBrat.setPower(putere);
+            }
+            while(gamepad2.dpad_down){
+                 double putere = btd(gamepad2.dpad_down);
+                 extindereBrat.setPower(-putere);
+            }
 
             telemetry.update();
         }
