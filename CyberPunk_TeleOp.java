@@ -222,7 +222,7 @@ public class CyberPunk_TeleOp extends LinearOpMode {
             extindereBrat.setPower(putere1*0.25-putere2*0.25)
             
             miscareCutie =  setPower(ridicareCutie);
-            extindereBrat = setPower(cutie_directie_fata - cutie_driectie_spate);
+            servoCutie = setPower(cutie_directie_fata - cutie_driectie_spate);
         
 
             telemetry.update();
