@@ -197,6 +197,8 @@ public class CyberPunk_TeleOp extends LinearOpMode {
             double rotire=gamepad1.right_stick_x;
             double fata_spate = gamepad1.right_stick_y;
             double miscare_brat = gamepad2.left_stick_y;
+            double putere1 = gamepad2.dpad_up;
+            double putere 2 = gamepad2.dpad_down;
             // Calling starfing function if dpad_left or dpad_right are pushed
             if(gamepad1.dpad_left || gamepad1.dpad_right)strafing();
 
@@ -214,15 +216,9 @@ public class CyberPunk_TeleOp extends LinearOpMode {
             bratStanga.setPower(miscare_brat);
             bratDreapta.setPower(miscare_brat);
 
-
-            while(gamepad2.dpad_up) {
-                 double putere = btd(gamepad2.dpad_up );
-                 extindereBrat.setPower(putere);
-            }
-            while(gamepad2.dpad_down){
-                 double putere = btd(gamepad2.dpad_down);
-                 extindereBrat.setPower(-putere);
-            }
+            extindereBrat.setPower(putere1)
+            extindereBrat.setPower(-putere2);
+        
 
             telemetry.update();
         }
