@@ -173,15 +173,15 @@ public class CyberPunk_TeleOp extends LinearOpMode {
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        stangaFata = setDirection(DcMotor.Direcion.FORWARD);
-        stangaSpate = setDirection(DcMotor.Direction.FORWARD);
-        dreaptaFata = setDirecion(DcMotor.Direction.FORWARD);
-        dreaptaSpate = setDirection(DcMotor.Direction.FORWARD);
+        stangaFata.setDirection(DcMotor.Direcion.FORWARD);
+        stangaSpate.setDirection(DcMotor.Direction.FORWARD);
+        dreaptaFata.setDirecion(DcMotor.Direction.FORWARD);
+        dreaptaSpate.setDirection(DcMotor.Direction.FORWARD);
 
-        bratStanga = setDirection(DcMotor.Direction.FORWARD);
-        bratDreapta = setDirection(DcMotor.Direction.FORWARD);
-        extindereBrat = setDirection(DcMotor.Direction.FORWARD);
-        miscareCutie = setDirection(DcMotor.Diretion.FORWARD);
+        bratStanga.setDirection(DcMotor.Direction.FORWARD);
+        bratDreapta.setDirection(DcMotor.Direction.FORWARD);
+        extindereBrat.setDirection(DcMotor.Direction.FORWARD);
+        miscareCutie.setDirection(DcMotor.Diretion.FORWARD);
         
         bratStanga.setPower(miscare_brat);
         bratDreapta.setPower(miscare_brat);
