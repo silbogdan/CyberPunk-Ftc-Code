@@ -213,11 +213,11 @@ public class CyberPunk_TeleOp extends LinearOpMode {
             dreaptaFata.setPower(0);
             dreaptaSpate.setPower(0);
 
-            bratStanga.setPower(miscare_brat);
-            bratDreapta.setPower(miscare_brat);
+            bratStanga.setPower(miscare_brat*0.25);
+            bratDreapta.setPower(miscare_brat*0.25);
 
-            extindereBrat.setPower(putere1)
-            extindereBrat.setPower(-putere2);
+            extindereBrat.setPower(putere1*0.25)
+            extindereBrat.setPower(-putere2*0.25);
         
 
             telemetry.update();
