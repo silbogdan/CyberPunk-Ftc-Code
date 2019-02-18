@@ -198,7 +198,7 @@ public class CyberPunk_TeleOp extends LinearOpMode {
             double fata_spate = gamepad1.right_stick_y;
             double miscare_brat = gamepad2.left_stick_y;
             double putere1 = gamepad2.dpad_up;
-            double putere 2 = gamepad2.dpad_down;
+            double putere2 = gamepad2.dpad_down;
             // Calling starfing function if dpad_left or dpad_right are pushed
             if(gamepad1.dpad_left || gamepad1.dpad_right)strafing();
 
