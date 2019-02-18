@@ -205,7 +205,10 @@ public class CyberPunk_TeleOp extends LinearOpMode {
             dreaptaFata.setPower(-fata_spate - rotire);
             dreaptaSpate.setPower(-fata_spate - rotire);
 
-
+            stangaFata.setPower(0);
+            stangaSpate.setPower(0);
+            dreaptaFata.setPower(0);
+            dreaptaSpate.setPower(0);
 
 
 
