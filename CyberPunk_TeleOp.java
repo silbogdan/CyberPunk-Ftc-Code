@@ -89,22 +89,22 @@ public class CyberPunk_TeleOp extends LinearOpMode {
     public void strafing(){
 
       //Setting the power of the motors for strafing left if dpad_left is pushed
-      while(dpad_left){
-        double value=btd(dpad_left);
-        stangaFata.setPower(-value*0,25);
-        stangaSpate.setPower(value*0,25);
-        dreaptaFata.setPower(value*0,25);
-        dreaptaSpate.setPower(-value*0,25);}
+     while (gamepad1.dpad_left) {
+            double value = btd(gamepad1.dpad_left);
+            stangaFata.setPower(value);
+            stangaSpate.setPower(-value);
+            dreaptaFata.setPower(value);
+            dreaptaSpate.setPower(-value);
+        }
 
     //Setting the power of the motors for strafing right if dpad_right is pushed
-      while (dpad_right){
-        double value=btd(dpad_right);
-        stangaFata.setPower(value*0,25);
-        stangaSpate.setPower(-value*0,25);
-        dreaptaFata.setPower(-value*0,25);
-        dreaptaSpate.setPower(value*0,25);}
-
-    }
+      while (gamepad1.dpad_right) {
+            double value = btd(gamepad1.dpad_right);
+            stangaFata.setPower(-value);
+            stangaSpate.setPower(value);
+            dreaptaFata.setPower(-value);
+            dreaptaSpate.setPower(value);
+        }
 
 
     public double cm_converter(double motor_ticks, double gear_ratio_1, double gear_ratio_2, double wheel_diameter, double cm){
@@ -200,11 +200,10 @@ public class CyberPunk_TeleOp extends LinearOpMode {
             if(gamepad1.dpad_left || gamepad1.dpad_right)strafing();
 
             // Send calculated power to wheels
-            stangaFata = setPower(fata_spate + rotire);
-            stangaSpate = setPower(fata_spate + rotire);
-            dreaptaFata = setPower(fata_spate - rotire);
-            dreaptaSpate = setPower(fata_spate - rotire);
-
+             stangaFata.setPower(fata_spate - rotire);
+            stangaSpate.setPower(fata_spate - rotire);
+            dreaptaFata.setPower(-fata_spate - rotire);
+            dreaptaSpate.setPower(-fata_spate - rotire);
 
 
 
