@@ -1,0 +1,161 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+@TeleOp(name="TeleOpFinal", group="Linear Opmode")
+
+public class TeleOpFinal extends LinearOpMode {
+
+    // Declare OpMode members.
+    private ElapsedTime runtime = new ElapsedTime();
+    private DcMotor stangaFata = null;
+    private DcMotor stangaSpate = null;
+    private DcMotor dreaptaFata = null;
+    private DcMotor dreaptaSpate = null;
+    private DcMotor bratStanga = null;
+    private DcMotor bratDreapta = null;
+    private DcMotor extindereBrat = null;
+    private DcMotor miscareCutie = null;
+
+    private CRServo servoCutie = null;
+    private Servo servoSenzor = null;
+    private Servo servoMarker = null;
+    private Servo servoCarlig = null;
+    private Servo servoLock = null;
+    private Servo servoBob = null;
+    
+    public static double btd(boolean b) {
+        /* This function it used for converting boolean to double */
+        if (b) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public void runOpMode() {
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        // Initialize the hardware variables. Note that the strings used here as parameters
+        // to 'get' must correspond to the names assigned during the robot configuration
+        // step (using the FTC Robot Controller app on the phone).
+        stangaFata = hardwareMap.get(DcMotor.class, "stangaFata");
+        stangaSpate = hardwareMap.get(DcMotor.class, "stangaSpate");
+        dreaptaFata = hardwareMap.get(DcMotor.class, "dreaptaFata");
+        dreaptaSpate = hardwareMap.get(DcMotor.class, "dreaptaSpate");
+        bratStanga = hardwareMap.get(DcMotor.class, "bratStanga");
+        bratDreapta = hardwareMap.get(DcMotor.class, "bratDreapta");
+        extindereBrat = hardwareMap.get(DcMotor.class, "extindereBrat");
+        miscareCutie = hardwareMap.get(DcMotor.class, "miscareCutie");
+
+        servoCutie = hardwareMap.get(CRServo.class, "servoCutie");
+        servoSenzor = hardwareMap.get(Servo.class, "servoSenzor");
+        servoMarker = hardwareMap.get(Servo.class, "servoMarker");
+        servoCarlig = hardwareMap.get(Servo.class, "servoCarlig");
+        servoLock = hardwareMap.get(Servo.class, "servoLock");
+        servoBob = hardwareMap.get(Servo.class, "servoBob");
+        // Most robots need the motor on one side to be reversed to drive forward
+        // Reverse the motor that runs backwards when connected directly to the battery
+        stangaFata.setDirection(DcMotor.Direction.FORWARD);
+        stangaSpate.setDirection(DcMotor.Direction.FORWARD);
+        dreaptaFata.setDirection(DcMotor.Direction.FORWARD);
+        dreaptaSpate.setDirection(DcMotor.Direction.FORWARD);
+        bratStanga.setDirection(DcMotor.Direction.FORWARD);
+        bratDreapta.setDirection(DcMotor.Direction.FORWARD);
+        extindereBrat.setDirection(DcMotor.Direction.FORWARD);
+        miscareCutie.setDirection(DcMotor.Direction.FORWARD);
+        
+        bratStanga.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bratDreapta.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        extindereBrat.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+        runtime.reset();
+
+        // run until the end of the match (driver presses STOP)
+        while (opModeIsActive()) {
+
+            //declaring variables
+            double rotire = gamepad1.right_stick_x;
+            double fata_spate = gamepad1.right_stick_y;
+            double miscare_brat = gamepad2.left_stick_y;
+            double putere1 = btd(gamepad2.dpad_up);
+            double putere2 = btd(gamepad2.dpad_down);
+            double cutie_directie_fata=gamepad2.right_trigger;
+            double cutie_directie_spate=gamepad2.left_trigger;
+            double ridicareCutie=0.25*gamepad2.right_stick_x;
+            double value1 = btd(gamepad1.dpad_left);
+            double value2 = btd(gamepad1.dpad_right);
+            
+            stangaFata.setPower(value1 -value2);
+            stangaSpate.setPower(-value1 -value2);
+            dreaptaFata.setPower(value1 -value2);
+            dreaptaSpate.setPower(-value1 -value2);
+            
+            
+            stangaFata.setPower(fata_spate - rotire);
+            stangaSpate.setPower(fata_spate - rotire);
+            dreaptaFata.setPower(-fata_spate - rotire);
+            dreaptaSpate.setPower(-fata_spate - rotire);
+            
+            bratStanga.setPower(miscare_brat*0.25);
+            bratDreapta.setPower(miscare_brat*0.25);
+
+            extindereBrat.setPower(putere1*0.25-putere2*0.25);
+            
+            miscareCutie.setPower(ridicareCutie);
+            servoCutie.setPower(cutie_directie_fata - cutie_directie_spate);
+            
+            if(gamepad2.a)
+            servoLock.setPosition(1);
+            if(gamepad2.y)
+            servoLock.setPosition(0);
+
+            if(gamepad1.x)
+            {
+                bratStanga.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                bratDreapta.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                
+                bratStanga.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                bratDreapta.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                
+                
+                bratStanga.setTargetPosition(560);
+                bratDreapta.setTargetPosition(560);
+                bratStanga.setPower(0.25);
+                bratDreapta.setPower(0.25);
+                while(opModeIsActive() && bratStanga.isBusy() && bratDreapta.isBusy())
+                {telemetry.addData("encoder-fwd", bratStanga.getCurrentPosition() + "  busy=" + bratStanga.isBusy());
+                 telemetry.update();
+                }
+                
+                servoCarlig.setPosition(0);
+                bratStanga.setTargetPosition(565);
+                bratDreapta.setTargetPosition(565);
+                bratStanga.setPower(1);
+                bratDreapta.setPower(1);
+                while(opModeIsActive() && bratStanga.isBusy() && bratDreapta.isBusy())
+                {telemetry.addData("encoder-fwd", bratStanga.getCurrentPosition() + "  busy=" + bratStanga.isBusy());
+                 telemetry.update();
+                }
+                servoCarlig.setPosition(1);
+                bratStanga.setPower(0);
+                bratDreapta.setPower(0);
+                
+                
+                
+                
+            }
+            
+            
+            telemetry.update();
+        }
+    }
+}
