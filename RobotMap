@@ -1,0 +1,67 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
+
+ 
+public class RobotMap
+{
+    HardwareMap hwMap = null;
+
+
+    // Movement
+    public DcMotor dreaptaFata  = null;
+    public DcMotor dreaptaSpate = null;
+    public DcMotor stangaFata   = null;
+    public DcMotor stangaSpate  = null;
+
+    // Collect box
+    public CRServo servoCutie = null;
+    public DcMotor miscareCutie = null;
+
+    // Lander pivot / lift
+    public DcMotor bratStanga  = null;
+    public DcMotor bratDreapta = null;
+    public Servo   servoLock   = null;
+    public Servo   servoBob    = null;
+    public Servo   servoCarlig = null;
+
+    public Servo servoSenzor = null;
+    public Servo servoMarker = null;
+
+    // Motor care actioneaza sistemul cu ata ce extinde bratul
+    public DcMotor extindereBrat = null;
+
+
+
+    // Constructor
+    public RobotMap() {}
+
+    public void init(HardwareMap aMap)
+    {
+        hwMap = aMap;
+
+        // Hardware mapping
+        dreaptaFata   = hwMap.get(DcMotor.class, "dreaptaFata");
+        dreaptaSpate  = hwMap.get(DcMotor.class, "dreaptaSpate");
+        stangaFata    = hwMap.get(DcMotor.class, "stangaFata");
+        stangaSpate   = hwMap.get(DcMotor.class, "stangaSpate");
+        servoLock     = hwMap.get(Servo.class, "servoLock");
+        servoBob      = hwMap.get(Servo.class, "servoBob");
+        servoCutie    = hwMap.get(CRServo.class, "servoCutie");
+        miscareCutie  = hwMap.get(DcMotor.class, "miscareCutie");
+        bratStanga    = hwMap.get(DcMotor.class, "bratStanga");
+        bratDreapta   = hwMap.get(DcMotor.class, "bratDreapta");
+        servoCarlig   = hwMap.get(Servo.class, "servoCarlig");
+        servoSenzor   = hwMap.get(Servo.class, "servoSenzor");
+        servoMarker   = hwMap.get(Servo.class, "servoMarker");
+        extindereBrat = hwMap.get(DcMotor.class, "extindereBrat");
+
+
+        // Default initializations
+        servoLock.setPosition(0);
+        servoBob.setPosition(0);
+    }
+}
